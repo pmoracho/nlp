@@ -92,7 +92,8 @@ def init_argparse():
 	cmdparser.add_argument('sentence', 			type=str, nargs='?', help="Sentencia a interpretar")
 
 	cmdparser.add_argument("-v", "--version", 					action='version', version=__version__)
-	cmdparser.add_argument('-t', '--train-file', 	type=str, 	action="store", dest="train_file", help="Definir el archivo de entrenamiento", metavar="\"path o archivo\"")
+	cmdparser.add_argument('-t', '--train-file', 	type=str, 	action="store", dest="train_file", help=u"Definir el archivo de entrenamiento", metavar="\"path o archivo\"")
+	cmdparser.add_argument('-c', '--tag-count', 	type=int, 	action="store", default=0, dest="tag_count", help=u"Cantidada de tags a mostrara (Defualt=Todas)", metavar="\"numero de tags\"")
 	"""
 	cmdparser.add_argument('-a', '--addtotals', 				action="store_true", dest="addtotals", help="Agregar una última fila con los totales de los campos númericos")
 	cmdparser.add_argument('-u', '--useformat', 	type=str, 	action="store", dest="useformat", help="Forzar el uso de un determinado formato para porcesar el archivo", metavar="\"formato\"")
@@ -102,7 +103,6 @@ def init_argparse():
 	cmdparser.add_argument('-o', '--outputfile', 				action="store", dest="outputfile", help="Exportar a un archivo", metavar="\"archivo\"")
 	cmdparser.add_argument('-x', '--openfile', 					action="store_true", dest="openfile", help="abrir automáticamente el archivo")
 	cmdparser.add_argument('-e', '--exportformat', 				action="store", dest="exportformat", help="Exportar en un formato específico", metavar="\"formato\"", default="psql")
-	cmdparser.add_argument('-c', '--showcols', 		type=str, 	action="store", dest="showcols", help=u"Números de las columnas a mostrar", metavar="\"columnas\"")
 	cmdparser.add_argument('-r', '--showrows', 		type=str, 	action="store", dest="showrows", help=u"Números de las filas a mostrar", metavar="\"filas\"")
 	cmdparser.add_argument('-n', '--dontshowrecordnumber', 		action="store_false", dest="addrecordnumber", help="No mostrar los números de cada registro")
 	cmdparser.add_argument('-z', '--horizontalmode', 			action="store_true", dest="horizontalmode", help="Modo de visualización horizontal")
@@ -287,7 +287,7 @@ if __name__ == "__main__":
 
 	print ("Sentencia: {0}".format(args.sentence))
 	print ("--------------------------------------------------------")
-	pprint.pprint(clt.classify_all(args.sentence, max_values = 3))
+	pprint.pprint(clt.classify_all(args.sentence, max_values = args.tag_count))
 	print ("--------------------------------------------------------")
 	# print(stemmer.stem("cierre"))
 	# print(stopwords.words('spanish'))
